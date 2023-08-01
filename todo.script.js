@@ -34,7 +34,6 @@ document.getElementById("fetchDataBtn").addEventListener("click", function () {
                          </thead>
                         <tbody>`;
 
-      // Assuming you have an empty variable todoTable and todos array
 
       for (let i = 0; i < todos.length && i < 10; i++) {
         const todo = todos[i];
