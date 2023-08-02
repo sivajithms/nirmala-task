@@ -8,7 +8,7 @@
   </head>
   <body>
     <div class="container d-flex justify-content-center align-items-center vh-100">
-      <form onclick='return handleSubmit()'>
+      <form onsubmit='return handleSubmit(validate)'>
         <div class="mb-3 text-center">
           <label for="exampleInputEmail1" class="form-label">Username</label>
           <input type="text" class="form-control" id="userName" aria-describedby="emailHelp">
@@ -17,16 +17,11 @@
           <label for="exampleInputPassword1" class="form-label">Password</label>
           <input type="password" class="form-control" id="pswd">
         </div>
-        <div class="mb-3 form-check text-center">
-          <input type="checkbox" class="form-check-input" id="">
-          <label class="form-check-label" for="exampleCheck1">Check me out</label>
-        </div>
         <div class="d-flex justify-content-center align-items-center">
-
           <button type="submit" class="btn btn-primary">Submit</button>
         </div>
+        <div id="errorDiv" class="text-danger"></div>
       </form>
-      <div id="errorDiv" class="text-danger d-none">Invalid credentials. Please try again.</div>
     </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
 <script src="script.js"></script>

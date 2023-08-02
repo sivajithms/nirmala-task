@@ -1,68 +1,52 @@
-let checkedTodos = 0;
+let todos = []
+function showTodo(){
+var xhttp = new XMLHttpRequest();
 
-function fetchApi() {
-  return new Promise((resolve, reject) => {
-    var xhttp = new XMLHttpRequest();
-
-    xhttp.onreadystatechange = function () {
-      if (this.readyState === 4 && this.status === 200) {
-        var data = JSON.parse(this.responseText);
-        console.log(data);
-        resolve(data);
-      } else if (this.readyState === 4 && this.status !== 200) {
-        reject('Failed to fetch data from the API.');
-      }
-    };
-
-    xhttp.open("GET", "https://jsonplaceholder.typicode.com/todos", true);
-    xhttp.send();
-  });
-}
-
-document.getElementById("fetchDataBtn").addEventListener("click", function () {
-  fetchApi()
-    .then(data => {
-      let todos = data;
+  xhttp.onreadystatechange = function () {
+    if (this.readyState === 4 && this.status === 200) {
+      todos = JSON.parse(this.responseText);
+      console.log(todos);
       let todoTable = `<table class="table">
                         <thead>
                           <tr>
                            <th scope="col">id</th>
                             <th scope="col">title</th>
-                            <th scope="col">status</th>
+                        
                            <th scope="col">completed</th>
                           </tr>
                          </thead>
                         <tbody>`;
 
-      for (let i = 0; i < todos.length && i < 10; i++) {
+      for (let i = 0; i < todos.length; i++) {
         const todo = todos[i];
-        let checkedAttr = todo.completed ? 'checked' : '';
-        let disabledAttr = todo.completed ? 'disabled' : '';
+        let checked = todo.completed ? 'checked' : '';
+        let disabled = todo.completed ? 'disabled' : '';
 
         todoTable += `<tr>
                        <td>${todo.id}</td>
                        <td>${todo.title}</td>
-                       <td>${todo.completed}</td>
-                       <td><input type="checkbox" class="form-check-input" id="" onclick="handleCheck()" ${checkedAttr} ${disabledAttr}></td>
+                 
+                       <td><input type="checkbox" class="form-check-input" id="" onclick="handleCheck()" ${checked} ${disabled}></td>
                      </tr>`;
 
-        if (todo.completed) checkedTodos++;
       }
 
       todoTable += `</tbody></table>`
-      console.log(checkedTodos);
       document.getElementById("tbl").innerHTML = todoTable;
-    })
-    .catch(error => {
-      console.error("Error fetching data:", error);
-    });
+    }
+  };
 
-});
+
+  xhttp.open("GET", "https://jsonplaceholder.typicode.com/todos", true);
+  xhttp.send();
+}
+
+let checkedTodos = 0;
 
 function checkCount() {
-  return new Promise((resolve) => {
-    checkedTodos++
-    if (checkedTodos >= 5)
+  return new Promise((resolve, reject) => {
+    checkedTodos++;
+    if (checkedTodos == 5)
       resolve(true)
   })
 }
